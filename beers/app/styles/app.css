@@ -39,12 +39,12 @@
   }
 
 .collapseArrowRight {
-	float:right; 
+	float:right;
 	margin: 5px 5px 0 0;
 }
 
 .collapseArrowLeft {
-	float:left; 
+	float:left;
 	margin: 5px 0 0 5px;
 }
 
@@ -54,4 +54,12 @@
 
 .infoRow {
 	padding-bottom: 15px;
+}
+
+.ratingColumn {
+  padding-right: 0px;
+}
+
+.footerLogo {
+  float: left;
 }
