@@ -41,8 +41,6 @@ var beerlist = [
     pairing: "Food and stuff.",
     imgBrewery: "https://pbs.twimg.com/profile_images/1858365199/Omission_FB_SM_TWIT_400x400.jpg",
     imgBeer: "http://g-freenyc.com/wp-content/uploads/2014/07/omission-lager.jpg",
-
-
   },
   {
     beer: "Something Else",
@@ -54,6 +52,8 @@ var beerlist = [
     description: "Something Else!",
     tasting: "TBD",
     pairing: "TBD",
+    imgBrewery: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
+    imgBeer: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
   },
   {
     beer: "Super Duper",
@@ -65,6 +65,8 @@ var beerlist = [
     description: "Super duper think so",
     tasting: "TBD",
     pairing: "TBD",
+    imgBrewery: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
+    imgBeer: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
   },
   {
     beer: "Markers",
@@ -76,6 +78,8 @@ var beerlist = [
     description: "Marker's candy...",
     tasting: "TBD",
     pairing: "TBD",
+    imgBrewery: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
+    imgBeer: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
   },
   {
     beer: "Markers",
@@ -87,6 +91,8 @@ var beerlist = [
     description: "Ooopsies!",
     tasting: "TBD",
     pairing: "TBD",
+    imgBrewery: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
+    imgBeer: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
   },
   {
     beer: "Markers 4",
@@ -98,6 +104,8 @@ var beerlist = [
     description: "Marker's 4",
     tasting: "TBD",
     pairing: "TBD",
+    imgBrewery: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
+    imgBeer: "http://vignette4.wikia.nocookie.net/assassinscreed/images/a/af/Question_mark.png/revision/latest?cb=20121118055707",
   },
 ];
 
