@@ -27,43 +27,16 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-
       {{#each beers}}
-        {{name}}
+        {{#if @index}}
+          {{#if isHour time}}
+            <li role="separator" class="divider"></li>
+          {{/if}}
+        {{/if}}
+        <li>
+          <a href="#">{{friendlyTime time}} - {{brewery}} {{beer}}</a>
+        </li>
       {{/each}}
-
-
-      <!-- <li><a href="#">6:00pm - Shocktop Pumpkin Wheat</a></li>
-      <li><a href="#">6:20pm - Recky Brewing Down Under IPA</a></li>
-      <li><a href="#">6:40pm - MRM Confederate Brewery The Rebel</a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">7:00pm - Candy Lane Brewery Some Cider</a></li>
-      <li><a href="#">7:20pm - Lorem Bewery Ipsum IPA</a></li>
-      <li><a href="#">7:40pm - Walt's Brew Factory Fart Lager</a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">8:00pm - Patti's Perfect Porter</a></li>
-      <li><a href="#">8:20pm - Mark's Ginger Ale</a></li>
-      <li><a href="#">8:40pm - Caleb's Crazy Shit</a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">9:00pm - Kelly's Gluten Free Mead</a></li>
-      <li><a href="#">9:20pm - Sam Adams Winter Ale</a></li>
-      <li><a href="#">9:40pm - Yuengling</a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">10:00pm - TBD</a></li>
-      <li><a href="#">10:20pm - TBD</a></li>
-      <li><a href="#">10:40pm - TBD </a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">11:00pm - TBD</a></li>
-      <li><a href="#">11:20pm - TBD</a></li>
-      <li><a href="#">11:40pm - TBD</a></li>
-      <li role="separator" class="divider"></li>
-
-      <li><a href="#">12:00am - HAPPY NEW YEAR!</a></li> -->
     </ul>
   </span>
 </template>
