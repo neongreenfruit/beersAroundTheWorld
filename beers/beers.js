@@ -1,82 +1,94 @@
 // Overhead stuff
-var eve = "December 31, 2015 ";
+var eve = "December 31, 2015 "; // date of event
+var startTime = "18:00"; // 24hr time we start the shindig
+var startDateTime = new Date(eve + startTime);
+var beerGap = 20; // gap between beers
+var previewDuration = 5; // number of minutes you want to see a beer before its time
+function makeBeerTime(index) {
+  var startDate = new Date(eve + startTime);
+  var addMinutes = beerGap * index;
+  var beerTime = new Date(startDate);
+  beerTime.setMinutes(startDate.getMinutes() + addMinutes);
+  return beerTime;
+}
+
 var beerlist = [
   {
     beer: "IPA",
     brewery: "Omission",
+    style: "IPA",
     abv: 6.7,
     ibu: 65,
     hop: false,
     description: "Omission IPA is a bright, hop forward Northwest Style IPA produced in the spirit of the original IPAs shipped from the UK to India in the late 1800’s. The heavy-handed use of Cascade and Summit hops give it notable pine, citrus, and grapefruit aromas and flavors. The bitterness is what you would expect of a NW IPA but this beer is balanced and smooth due to the perfect level of malt sweetness. The finish is crisp, clean, and refreshing – it’s a true IPA lover’s IPA.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "18:20"),
   },
   {
     beer: "Lager",
     brewery: "Omission",
+    style: "Lager",
     abv: 4.6,
     ibu: 20,
     hop: false,
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "18:00"),
   },
   {
     beer: "Something Else",
     brewery: "Crazy",
+    style: "Stout",
     abv: 6.7,
     ibu: 65,
     hop: false,
     description: "Omission IPA is a bright, hop forward Northwest Style IPA produced in the spirit of the original IPAs shipped from the UK to India in the late 1800’s. The heavy-handed use of Cascade and Summit hops give it notable pine, citrus, and grapefruit aromas and flavors. The bitterness is what you would expect of a NW IPA but this beer is balanced and smooth due to the perfect level of malt sweetness. The finish is crisp, clean, and refreshing – it’s a true IPA lover’s IPA.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "18:40"),
   },
   {
     beer: "Super Duper",
     brewery: "Candy",
+    style: "Not a style",
     abv: 4.6,
     ibu: 20,
     hop: false,
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "19:00"),
   },
   {
     beer: "Markers",
     brewery: "Candy",
+    style: "Not a style 2",
     abv: 4.6,
     ibu: 20,
     hop: false,
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "19:20"),
   },
   {
     beer: "Markers",
     brewery: "Oooops",
+    style: "Not a style 3",
     abv: 4.6,
     ibu: 20,
     hop: false,
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "19:40"),
   },
   {
-    beer: "Markers",
-    brewery: "Oooops",
+    beer: "Markers 4",
+    brewery: "Oooops 4",
+    style: "Not a style 4",
     abv: 4.6,
     ibu: 20,
     hop: false,
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
     tasting: "TBD",
     pairing: "TBD",
-    time: new Date(eve + "20:00"),
   },
 ];
 
@@ -88,30 +100,34 @@ Router.route('/:time', {
   data : function() {
     console.log("time page " + this.params.time);
 
+    foundBeer = findBeer(this.params.time);
+    // var offset =
+    //
+    //
+    // var foundBeer =
+    console.log(foundBeer);
+
+    Session.set('currentBeer', foundBeer);
+
   }
 });
 
 if (Meteor.isClient) {
-  // // counter starts at 0
-  // Session.setDefault('counter', 0);
-  //
-  // Template.hello.helpers({
-  //   counter: function () {
-  //     return Session.get('counter');
-  //   }
-  // });
+  // Set default beer if no time is found
+  Session.setDefault('currentBeer', findBeer("1800"));
 
-  // Template.hello.events({
-  //   'click button': function () {
-  //     // increment the counter when button is clicked
-  //     Session.set('counter', Session.get('counter') + 1);
-  //   }
-  // });
+  Template.registerHelper("equals", function (a, b) {
+    return (a == b);
+  });
 
   // Access the beer list from all templates (sort early to late)
   Template.registerHelper("beers",function(){
     return Beers.find({}, {sort: {time: 1}});
   });
+
+  Template.registerHelper("currentBeer", function() {
+    return Session.get('currentBeer');
+  })
 
   // Converts a date time to hh:mm am/pm time
   Template.registerHelper("friendlyTime", function(dateTime) {
@@ -124,27 +140,70 @@ if (Meteor.isClient) {
     return dateTime.getMinutes() == 0;
   });
 
+  // Make a 24hr time stamp
+  Template.registerHelper("milTime", function(dateTime) {
+    var minutes = dateTime.getMinutes();
+    if(minutes == 0) {
+      minutes = "00";
+    }
+    var hour = dateTime.getHours();
+    return hour + "" + minutes;
+  })
+
+  // Finds the beer based on the given 24hr milTime string w/ respect to the beerGap
+  function findBeer(milTime) {
+    var adjustedTime = parseInt(milTime) + parseInt(previewDuration);
+    var roundTime = parseInt(adjustedTime) - (adjustedTime % parseInt(beerGap));
+
+    console.log(eve + roundTime);
+
+    if(roundTime.length == 3) {
+      roundTime = "0" + roundTime;
+    }
+
+    // Lame... hardcoded assumes 4 digits
+    var firstTwo = String(roundTime).substring(0, 2);
+    var lastTwo = String(roundTime).substring(2, 4)
+
+    console.log(firstTwo);
+    console.log(lastTwo);
+
+    var colonTime = firstTwo + ":" + lastTwo;
+
+    beerDateTime = new Date(eve + colonTime);
+    console.log(beerDateTime);
+
+    // if they look before the start
+    if(beerDateTime < startDateTime) {
+      beerDateTime = startDateTime;
+    }
+
+
+    var foundBeer = Beers.findOne({time: beerDateTime});
+    return foundBeer;
+  }
+
   Template.body.helpers({
     panels : [
       {
         title : "Description",
         headingId : "headingOne",
         collapseId : "collapaseOne",
-        body : "Beer Description! Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
+        body: "description",
         open : true,
       },
       {
         title : "Tasting Notes",
         headingId : "headingTwo",
         collapseId : "collapaseTwo",
-        body : "Has good pallate on your face. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
+        body: "tasting",
         open : false,
       },
       {
         title : "Food Pairing",
         headingId : "headingThreww",
         collapseId : "collapaseThree",
-        body : "Drink this beer with cheese and stuff. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.",
+        body: "pairing",
         open : false,
       },
     ],
@@ -181,7 +240,8 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     // Insert all the beers into the collection
     Beers.remove({});
-    beerlist.forEach(function(beer) {
+    beerlist.forEach(function(beer, index) {
+      beer.time = makeBeerTime(index);
       Beers.insert(beer);
     });
   });

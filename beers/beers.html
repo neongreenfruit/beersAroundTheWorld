@@ -16,9 +16,13 @@
 
     <pre>
       Hello World!
-      {{#each beers}}
+      <!--{{#each beers}}
         {{friendlyTime time}} {{brewery}} {{beer}}
-      {{/each}}
+      {{/each}}-->
+
+      {{#with currentBeer}}
+        {{brewery}} {{beer}}
+      {{/with}}
     </pre>
 
     {{> beerInfo}}
@@ -27,7 +31,7 @@
       {{#each panels}}
         {{> panel}}
       {{/each}}
-      {{> ratingPanel}}
+      <!--{{> ratingPanel}}-->
     </div>
 
   </div> <!-- /container -->

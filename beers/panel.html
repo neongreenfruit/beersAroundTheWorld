@@ -19,7 +19,23 @@
          aria-expanded="{{#if open}}true{{else}}false{{/if}}">
 
       <div class="panel-body">
-        {{body}}
+        {{#if equals body "description"}}
+          {{#with currentBeer}}
+            {{description}}
+          {{/with}}
+        {{/if}}
+
+        {{#if equals body "tasting"}}
+          {{#with currentBeer}}
+            {{tasting}}
+          {{/with}}
+        {{/if}}
+
+        {#if equals body "pairing"}}
+          {{#with currentBeer}}
+            {{pairing}}
+          {{/with}}
+        {{/if}}
       </div>
     </div>
   </div>
