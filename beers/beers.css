@@ -67,3 +67,7 @@
 .beerList {
   margin-top: 5px;
 }
+
+.imgBeer{
+  max-height: 300px;
+}

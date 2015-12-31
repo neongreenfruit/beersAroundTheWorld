@@ -14,17 +14,6 @@
 
   <div class="container mainContainer">
 
-    <pre>
-      Hello World!
-      <!--{{#each beers}}
-        {{friendlyTime time}} {{brewery}} {{beer}}
-      {{/each}}-->
-
-      {{#with currentBeer}}
-        {{brewery}} {{beer}}
-      {{/with}}
-    </pre>
-
     {{> beerInfo}}
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -37,4 +26,5 @@
   </div> <!-- /container -->
 
   {{> footer}}
+
 </body>

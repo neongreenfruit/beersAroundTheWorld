@@ -5,13 +5,13 @@
 
       <div class="navbar-header text-center">
 
-        <a href="#" class="btn btn-default collapseArrowLeft">
+        <a href="/{{#with currentBeer}}{{lastTime time}}{{/with}}" class="btn btn-default collapseArrowLeft">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
 
         {{> dropdown}}
 
-        <a href="#" class="btn btn-default collapseArrowRight">
+        <a href="/{{#with currentBeer}}{{nextTime time}}{{/with}}" class="btn btn-default collapseArrowRight">
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
 
@@ -23,7 +23,9 @@
 <template name="dropdown">
   <span class="dropdown">
     <button class="btn btn-default dropdown-toggle beerList" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      6:00 pm
+      {{#with currentBeer}}
+        {{friendlyTime time}}
+      {{/with}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -43,10 +45,19 @@
 
 <template name="footer">
   <footer class="footer">
-    <img class="footerLogo" src="https://www.sheehanfamilycompanies.com/sites/default/files/images/Shock%20Top%20Pumpkin%20Wheat%20Logo.gif" height="58"/>
+    <img class="footerLogo"
+         src="{{#with currentBeer}}{{imgBrewery}}{{/with}}"
+         height="58"/>
+
     <div class="container text-center">
-      <h5>Pumpkin Wheat</h5>
-      <h6>Shocktop</h6>
+      {{#with currentBeer}}
+        <h5>{{beer}}</h5>
+        <h6>{{brewery}}</h6>
+      {{/with}}
     </div>
   </footer>
+</template>
+
+<template name="beers">
+<!-- this is here just to suppress a warning for now-->
 </template>

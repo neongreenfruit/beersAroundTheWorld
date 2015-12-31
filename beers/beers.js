@@ -14,26 +14,35 @@ function makeBeerTime(index) {
 
 var beerlist = [
   {
-    beer: "IPA",
-    brewery: "Omission",
+    beer: "Omission IPA",
+    brewery: "Windmer Brothers & Redhook",
+    location: "Oregon, USA",
     style: "IPA",
     abv: 6.7,
     ibu: 65,
-    hop: false,
+    hop: "No hop rating.",
     description: "Omission IPA is a bright, hop forward Northwest Style IPA produced in the spirit of the original IPAs shipped from the UK to India in the late 1800’s. The heavy-handed use of Cascade and Summit hops give it notable pine, citrus, and grapefruit aromas and flavors. The bitterness is what you would expect of a NW IPA but this beer is balanced and smooth due to the perfect level of malt sweetness. The finish is crisp, clean, and refreshing – it’s a true IPA lover’s IPA.",
-    tasting: "TBD",
-    pairing: "TBD",
+    tasting: "You should taste this 'gluten-free' IPA!",
+    pairing: "Food, or not. Your choice.",
+    imgBrewery: "https://pbs.twimg.com/profile_images/1858365199/Omission_FB_SM_TWIT_400x400.jpg",
+    imgBeer: "http://res.cloudinary.com/ratebeer/image/upload/w_250,c_limit/beer_210025.jpg",
+
   },
   {
-    beer: "Lager",
-    brewery: "Omission",
+    beer: "Omission Lager",
+    brewery: "Windmer Brothers & Redhook",
+    location: "Oregon, USA",
     style: "Lager",
     abv: 4.6,
     ibu: 20,
-    hop: false,
+    hop: "No hop rating.",
     description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
-    tasting: "TBD",
-    pairing: "TBD",
+    tasting: "You should taste this 'gluten-free' Lager!",
+    pairing: "Food and stuff.",
+    imgBrewery: "https://pbs.twimg.com/profile_images/1858365199/Omission_FB_SM_TWIT_400x400.jpg",
+    imgBeer: "http://g-freenyc.com/wp-content/uploads/2014/07/omission-lager.jpg",
+
+
   },
   {
     beer: "Something Else",
@@ -42,7 +51,7 @@ var beerlist = [
     abv: 6.7,
     ibu: 65,
     hop: false,
-    description: "Omission IPA is a bright, hop forward Northwest Style IPA produced in the spirit of the original IPAs shipped from the UK to India in the late 1800’s. The heavy-handed use of Cascade and Summit hops give it notable pine, citrus, and grapefruit aromas and flavors. The bitterness is what you would expect of a NW IPA but this beer is balanced and smooth due to the perfect level of malt sweetness. The finish is crisp, clean, and refreshing – it’s a true IPA lover’s IPA.",
+    description: "Something Else!",
     tasting: "TBD",
     pairing: "TBD",
   },
@@ -53,7 +62,7 @@ var beerlist = [
     abv: 4.6,
     ibu: 20,
     hop: false,
-    description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
+    description: "Super duper think so",
     tasting: "TBD",
     pairing: "TBD",
   },
@@ -64,7 +73,7 @@ var beerlist = [
     abv: 4.6,
     ibu: 20,
     hop: false,
-    description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
+    description: "Marker's candy...",
     tasting: "TBD",
     pairing: "TBD",
   },
@@ -75,7 +84,7 @@ var beerlist = [
     abv: 4.6,
     ibu: 20,
     hop: false,
-    description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
+    description: "Ooopsies!",
     tasting: "TBD",
     pairing: "TBD",
   },
@@ -86,7 +95,7 @@ var beerlist = [
     abv: 4.6,
     ibu: 20,
     hop: false,
-    description: "Omission Lager is a refreshing and crisp beer, brewed in the traditional lager style. Perfect for a variety of beer drinking occasions, Omission Lager’s aromatic hop profile offers a unique, easy-drinking beer for those looking for a lighter and approachable beer style.",
+    description: "Marker's 4",
     tasting: "TBD",
     pairing: "TBD",
   },
@@ -96,19 +105,17 @@ var beerlist = [
 Beers = new Mongo.Collection("beers");
 
 // Routes
+Router.route('/', {
+  template: "beers"
+});
+
 Router.route('/:time', {
+  template: "beers",
   data : function() {
-    console.log("time page " + this.params.time);
-
+    //console.log("time page " + this.params.time);
     foundBeer = findBeer(this.params.time);
-    // var offset =
-    //
-    //
-    // var foundBeer =
-    console.log(foundBeer);
-
+    //console.log(foundBeer);
     Session.set('currentBeer', foundBeer);
-
   }
 });
 
@@ -148,14 +155,31 @@ if (Meteor.isClient) {
     }
     var hour = dateTime.getHours();
     return hour + "" + minutes;
+  });
+
+  Template.registerHelper("nextTime", function(dateTime) {
+    return addTimeString(dateTime, beerGap);
+  });
+
+  Template.registerHelper("lastTime", function(dateTime) {
+    return addTimeString(dateTime, -1 * beerGap);
   })
+
+  function addTimeString(dateTime, val) {
+    dateTime.setMinutes(dateTime.getMinutes() + val);
+    var minutes = String(dateTime.getMinutes());
+    if(minutes.length == 1) {
+      minutes = "00";
+    }
+    return dateTime.getHours() + "" + minutes;
+  }
 
   // Finds the beer based on the given 24hr milTime string w/ respect to the beerGap
   function findBeer(milTime) {
     var adjustedTime = parseInt(milTime) + parseInt(previewDuration);
     var roundTime = parseInt(adjustedTime) - (adjustedTime % parseInt(beerGap));
 
-    console.log(eve + roundTime);
+    //console.log(eve + roundTime);
 
     if(roundTime.length == 3) {
       roundTime = "0" + roundTime;
@@ -165,13 +189,13 @@ if (Meteor.isClient) {
     var firstTwo = String(roundTime).substring(0, 2);
     var lastTwo = String(roundTime).substring(2, 4)
 
-    console.log(firstTwo);
-    console.log(lastTwo);
+    //console.log(firstTwo);
+    //console.log(lastTwo);
 
     var colonTime = firstTwo + ":" + lastTwo;
 
     beerDateTime = new Date(eve + colonTime);
-    console.log(beerDateTime);
+    //console.log(beerDateTime);
 
     // if they look before the start
     if(beerDateTime < startDateTime) {
