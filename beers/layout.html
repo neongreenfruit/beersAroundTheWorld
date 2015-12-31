@@ -1,0 +1,79 @@
+<template name="header">
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+      <div class="navbar-header text-center">
+
+        <a href="#" class="btn btn-default collapseArrowLeft">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        {{> dropdown}}
+
+        <a href="#" class="btn btn-default collapseArrowRight">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+      </div>
+    </div>
+  </nav>
+</template>
+
+<template name="dropdown">
+  <span class="dropdown">
+    <button class="btn btn-default dropdown-toggle beerList" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      6:00 pm
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+      {{#each beers}}
+        {{name}}
+      {{/each}}
+
+
+      <!-- <li><a href="#">6:00pm - Shocktop Pumpkin Wheat</a></li>
+      <li><a href="#">6:20pm - Recky Brewing Down Under IPA</a></li>
+      <li><a href="#">6:40pm - MRM Confederate Brewery The Rebel</a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">7:00pm - Candy Lane Brewery Some Cider</a></li>
+      <li><a href="#">7:20pm - Lorem Bewery Ipsum IPA</a></li>
+      <li><a href="#">7:40pm - Walt's Brew Factory Fart Lager</a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">8:00pm - Patti's Perfect Porter</a></li>
+      <li><a href="#">8:20pm - Mark's Ginger Ale</a></li>
+      <li><a href="#">8:40pm - Caleb's Crazy Shit</a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">9:00pm - Kelly's Gluten Free Mead</a></li>
+      <li><a href="#">9:20pm - Sam Adams Winter Ale</a></li>
+      <li><a href="#">9:40pm - Yuengling</a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">10:00pm - TBD</a></li>
+      <li><a href="#">10:20pm - TBD</a></li>
+      <li><a href="#">10:40pm - TBD </a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">11:00pm - TBD</a></li>
+      <li><a href="#">11:20pm - TBD</a></li>
+      <li><a href="#">11:40pm - TBD</a></li>
+      <li role="separator" class="divider"></li>
+
+      <li><a href="#">12:00am - HAPPY NEW YEAR!</a></li> -->
+    </ul>
+  </span>
+</template>
+
+<template name="footer">
+  <footer class="footer">
+    <img class="footerLogo" src="https://www.sheehanfamilycompanies.com/sites/default/files/images/Shock%20Top%20Pumpkin%20Wheat%20Logo.gif" height="58"/>
+    <div class="container text-center">
+      <h5>Pumpkin Wheat</h5>
+      <h6>Shocktop</h6>
+    </div>
+  </footer>
+</template>
