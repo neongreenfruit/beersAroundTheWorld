@@ -17,7 +17,7 @@ The command prompt will output the address where you can view the app (ie. `http
 ## Troubleshooting
 
 ###### Router is not Defined
-- You need to install [iron-router](http://iron-meteor.github.io/iron router/).
+- You need to install [iron-router](http://iron-meteor.github.io/iron-router/).
 - In the `beersAroundTheWorld\beers` directory, run `meteor add iron:router`
 
 ###### Iron Router Won't Install
