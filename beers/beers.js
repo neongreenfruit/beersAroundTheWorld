@@ -1,5 +1,5 @@
 // Overhead stuff
-var eve = "December 31, 2015 "; // date of event
+var eve = "April 26, 2017 "; // date of event
 var startTime = "18:00"; // 24hr time we start the shindig
 var startDateTime = new Date(eve + startTime);
 var beerGap = 20; // gap between beers
@@ -112,6 +112,40 @@ var beerlist = [
 // Mongo DB Collections
 Beers = new Mongo.Collection("beers");
 
+// Finds the beer based on the given 24hr milTime string w/ respect to the beerGap
+function findBeer(milTime) {
+  var adjustedTime = parseInt(milTime) + parseInt(previewDuration);
+  var roundTime = parseInt(adjustedTime) - (adjustedTime % parseInt(beerGap));
+
+  //console.log(eve + roundTime);
+
+  if(roundTime.length == 3) {
+    roundTime = "0" + roundTime;
+  }
+
+  // Lame... hardcoded assumes 4 digits
+  var firstTwo = String(roundTime).substring(0, 2);
+  var lastTwo = String(roundTime).substring(2, 4)
+
+  //console.log(firstTwo);
+  //console.log(lastTwo);
+
+  var colonTime = firstTwo + ":" + lastTwo;
+
+  beerDateTime = new Date(eve + colonTime);
+  //console.log(beerDateTime);
+
+  // if they look before the start
+  if(beerDateTime < startDateTime) {
+    beerDateTime = startDateTime;
+  }
+
+
+  var foundBeer = Beers.findOne({time: beerDateTime});
+  return foundBeer;
+}
+
+
 // Routes
 Router.route('/', {
   template: "beers"
@@ -119,8 +153,9 @@ Router.route('/', {
 
 Router.route('/:time', {
   template: "beers",
-  data : function() {
+  data : function() {    
     //console.log("time page " + this.params.time);
+    console.log(beerlist);
     foundBeer = findBeer(this.params.time);
     //console.log(foundBeer);
     Session.set('currentBeer', foundBeer);
@@ -171,7 +206,7 @@ if (Meteor.isClient) {
 
   Template.registerHelper("lastTime", function(dateTime) {
     return addTimeString(dateTime, -1 * beerGap);
-  })
+  });
 
   function addTimeString(dateTime, val) {
     dateTime.setMinutes(dateTime.getMinutes() + val);
@@ -180,39 +215,6 @@ if (Meteor.isClient) {
       minutes = "00";
     }
     return dateTime.getHours() + "" + minutes;
-  }
-
-  // Finds the beer based on the given 24hr milTime string w/ respect to the beerGap
-  function findBeer(milTime) {
-    var adjustedTime = parseInt(milTime) + parseInt(previewDuration);
-    var roundTime = parseInt(adjustedTime) - (adjustedTime % parseInt(beerGap));
-
-    //console.log(eve + roundTime);
-
-    if(roundTime.length == 3) {
-      roundTime = "0" + roundTime;
-    }
-
-    // Lame... hardcoded assumes 4 digits
-    var firstTwo = String(roundTime).substring(0, 2);
-    var lastTwo = String(roundTime).substring(2, 4)
-
-    //console.log(firstTwo);
-    //console.log(lastTwo);
-
-    var colonTime = firstTwo + ":" + lastTwo;
-
-    beerDateTime = new Date(eve + colonTime);
-    //console.log(beerDateTime);
-
-    // if they look before the start
-    if(beerDateTime < startDateTime) {
-      beerDateTime = startDateTime;
-    }
-
-
-    var foundBeer = Beers.findOne({time: beerDateTime});
-    return foundBeer;
   }
 
   Template.body.helpers({
