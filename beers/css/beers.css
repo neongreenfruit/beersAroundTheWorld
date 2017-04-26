@@ -1,0 +1,12 @@
+.triggerCollapse.collapsed .panel-title:after {
+  content: "\e080";
+}
+
+.navbar-toggle {
+  float: none;
+  margin: 5px 0px 5px 0px;
+}
+
+.ratingColumn {
+  padding-right: 0px;
+}

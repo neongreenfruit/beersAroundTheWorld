@@ -27,3 +27,6 @@ The command prompt will output the address where you can view the app (ie. `http
 
 ###### babel-runtime could not be found in your node_modeles
 - Install with meteor using `meteor npm install --save babel-runtime` 
+
+###### SASS Support
+- Install using `meteor add fourseven:scss`

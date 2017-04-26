@@ -26,7 +26,6 @@ var beerlist = [
     pairing: "Food, or not. Your choice.",
     imgBrewery: "https://pbs.twimg.com/profile_images/1858365199/Omission_FB_SM_TWIT_400x400.jpg",
     imgBeer: "http://res.cloudinary.com/ratebeer/image/upload/w_250,c_limit/beer_210025.jpg",
-
   },
   {
     beer: "Omission Lager",
