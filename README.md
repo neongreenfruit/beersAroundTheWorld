@@ -11,6 +11,8 @@ Meteor Branch
 Go to the `beersAroundTheWorld\beers` directory and run the command `meteor`
 Check out the [Quick Start](https://guide.meteor.com/#quickstart) guide for more information. 
 
+The command prompt will output the address where you can view the app (ie. `http://localhost:3000`). 
+
 
 ## Troubleshooting
 
@@ -22,3 +24,6 @@ Check out the [Quick Start](https://guide.meteor.com/#quickstart) guide for more
 - Update to the latest version, use `meteor update`
 - Search for iron router, use `meteor search iron:router`
 - Attempt install again
+
+###### babel-runtime could not be found in your node_modeles
+- Install with meteor using `meteor npm install --save babel-runtime` 
