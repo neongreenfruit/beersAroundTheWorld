@@ -2,7 +2,7 @@
   <div class="row infoRow">
     <div class="col-xs-6 text-center">
       <img class="img-responsive img-thumbnail imgBeer"
-           src="{{#with currentBeer}}{{imgBeer}}{{/with}}" />
+           src="{{#with currentBeer}}{{#if imgBeer}}{{imgBeer}}{{else}}img/Question_mark.png{{/if}}{{/with}}" />
     </div>
     <div class="col-xs-6">
       <table class="table table-striped table-responsive">

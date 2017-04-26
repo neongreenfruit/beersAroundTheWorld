@@ -46,7 +46,7 @@
 <template name="footer">
   <footer class="footer">
     <img class="footerLogo"
-         src="{{#with currentBeer}}{{imgBrewery}}{{/with}}"
+         src="{{#with currentBeer}}{{#if imgBrewery}}{{imgBrewery}}{{else}}img/Question_mark.png{{/if}}{{/with}}"
          height="58"/>
 
     <div class="container text-center">
