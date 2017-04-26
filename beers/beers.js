@@ -112,6 +112,7 @@ var beerlist = [
 // Mongo DB Collections
 Beers = new Mongo.Collection("beers");
 
+// TODO: this function should not be in global scope... 
 // Finds the beer based on the given 24hr milTime string w/ respect to the beerGap
 function findBeer(milTime) {
   var adjustedTime = parseInt(milTime) + parseInt(previewDuration);
@@ -154,8 +155,7 @@ Router.route('/', {
 Router.route('/:time', {
   template: "beers",
   data : function() {    
-    //console.log("time page " + this.params.time);
-    console.log(beerlist);
+    //console.log("time page " + this.params.time);    
     foundBeer = findBeer(this.params.time);
     //console.log(foundBeer);
     Session.set('currentBeer', foundBeer);
